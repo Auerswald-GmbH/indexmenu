@@ -674,6 +674,11 @@ class syntax_plugin_indexmenu_indexmenu extends DokuWiki_Syntax_Plugin {
         $skip_file  = $opts['skip_file'];
         $headpage   = $opts['headpage'];
         $id         = pathID($file);
+        
+        //respect hidepages plugin (https://www.dokuwiki.org/plugin:hidepages) metadata
+        $meta = p_get_metadata($id);
+        if (isset($meta['hidepage'])) return false;
+
         if($type == 'd') {
             // Skip folders in plugin conf
             foreach($skip_index as $skipi) {
